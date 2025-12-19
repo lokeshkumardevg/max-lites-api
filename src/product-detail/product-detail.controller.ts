@@ -32,7 +32,7 @@ export class ProductDetailController {
   ) {
 
     if (files?.length > 0) {
-      dto.imageUrls = files.map(file => `${baseUrl}uploads` + file.filename);
+      dto.imageUrls = files.map(file => `${baseUrl}uploads/` + file.filename);
     }
     return this.productDetailService.create(dto);
   }
@@ -61,7 +61,7 @@ export class ProductDetailController {
     @Body() dto: UpdateProductDetailDto,
   ) {
     if (files?.length > 0) {
-      dto.imageUrls = files.map(file =>  `${baseUrl}uploads` + file.filename);
+      dto.imageUrls = files.map(file =>  `${baseUrl}uploads/` + file.filename);
     }
     return this.productDetailService.update(id, dto);
   }
