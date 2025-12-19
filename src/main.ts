@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { join } from 'path';
 import * as express from 'express';
 import { ValidationPipe } from '@nestjs/common';
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -21,8 +20,8 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-
-  await app.listen(8000, '0.0.0.0');
+  const port = process.env.PORT as any 
+  await app.listen(port);
 
   console.log(`Server running: http://localhost:8000`);
   console.log(`Uploads: http://localhost:8000/uploads/<filename>`);
