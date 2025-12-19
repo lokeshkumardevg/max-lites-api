@@ -21,7 +21,7 @@ async function bootstrap() {
     }),
   );
   const port = process.env.PORT as any 
-  await app.listen(port);
+  await app.listen(port); 
 
   console.log(`Server running: http://localhost:8000`);
   console.log(`Uploads: http://localhost:8000/uploads/<filename>`);

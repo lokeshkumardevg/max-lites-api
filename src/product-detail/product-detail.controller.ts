@@ -15,13 +15,14 @@ import { CreateProductDetailDto } from './dto/create-product-detail.dto';
 import { UpdateProductDetailDto } from './dto/update-product-detail.dto';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { QueryProductDto } from './dto/query-product.dto';
-
+    const baseUrl = process.env.SERVER_BASE_URL;
 @Controller('product-detail')
 export class ProductDetailController {
   constructor(private readonly productDetailService: ProductDetailService) { }
 
   // your LAN IP (change if needed)
-  private baseUrl = "http://192.168.0.112:8000/uploads/";
+  
+  
 
   @Post('AddProduct')
   @UseInterceptors(AnyFilesInterceptor())
@@ -29,8 +30,9 @@ export class ProductDetailController {
     @UploadedFiles() files: Array<Express.Multer.File>,
     @Body() dto: CreateProductDetailDto,
   ) {
+
     if (files?.length > 0) {
-      dto.imageUrls = files.map(file => this.baseUrl + file.filename);
+      dto.imageUrls = files.map(file => `${baseUrl}uploads` + file.filename);
     }
     return this.productDetailService.create(dto);
   }
@@ -59,7 +61,7 @@ export class ProductDetailController {
     @Body() dto: UpdateProductDetailDto,
   ) {
     if (files?.length > 0) {
-      dto.imageUrls = files.map(file => this.baseUrl + file.filename);
+      dto.imageUrls = files.map(file =>  `${baseUrl}uploads` + file.filename);
     }
     return this.productDetailService.update(id, dto);
   }
